@@ -10,8 +10,10 @@
   <body>
     <div class="container">
       <nav class="navbar navbar-default">My Task Manager</nav>
+
+      @yield("content")
     </div>
-    @yield("content")
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>

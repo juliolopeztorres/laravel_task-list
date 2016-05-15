@@ -9,6 +9,12 @@ use App\Task;
 
 class TaskController extends Controller
 {
+    /**
+     * Function to process a new posted task and add it to
+     * tasks table
+     * @param  Request $request The request input data
+     * @return Redirects to '/' with or without errors.
+     */
     public function process(Request $request)
     {
       $validator = Validator::make($request->all(), [
@@ -28,5 +34,19 @@ class TaskController extends Controller
 
       return redirect('/');
 
+    }
+
+    /**
+     * Function to retreive all tasks stored in table tasks
+     * and pass it to the view
+     * @return View tasks blade view
+     */
+    public function display()
+    {
+      $tasks = Task::orderBy('created_at', 'asc')->get();
+
+      return view('tasks', [
+        'tasks' => $tasks
+      ]);
     }
 }

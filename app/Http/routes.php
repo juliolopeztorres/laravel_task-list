@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 /**
  * Home - Show task dashboard
  */
-Route::get('/', function () {
-  return view("tasks");
-});
+Route::get('/', 'TaskController@display');
 
 /**
  * Add a new task
