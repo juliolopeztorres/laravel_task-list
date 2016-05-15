@@ -3,6 +3,9 @@
 @section('content')
 
 <div class="panel-body">
+  <!-- Display errors -->
+  @include('common.errors')
+
   <form action="{{url('task')}}" class="form-horizontal" method="post">
     {!! csrf_field() !!}
     <!-- Task Name -->
