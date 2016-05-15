@@ -5,6 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateStateTable extends Migration
 {
+
+    const STATE_OPEN = 1;
     /**
      * Run the migrations.
      *
@@ -23,7 +25,7 @@ class CreateStateTable extends Migration
 
         // Add state_id column to tasks table
         Schema::table('tasks', function($table){
-          $table->integer("state_id")->after("id");
+          $table->integer("state_id")->default(self::STATE_OPEN)->after("id");
         });
     }
 
