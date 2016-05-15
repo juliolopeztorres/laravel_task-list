@@ -20,9 +20,7 @@ Route::get('/', function () {
 /**
  * Add a new task
  */
-Route::post('/task', function (Request $request) {
-
-});
+Route::post('/task', 'TaskController@process');
 
 /**
  * Delete an existing task
