@@ -56,6 +56,16 @@ class TaskController extends Controller
     }
 
     /**
+     * Function to show the detailed info of a task
+     * @param  Task   $task The task user clicked
+     * @return View task blade view
+     */
+    public function displayOne(Task $task)
+    {
+      return view('task', ['task' => $task]);
+    }
+
+    /**
      * Function to delete de task passed through argument.
      * Redirects to the dashboard
      * @param  Task   $task Task to delete
@@ -93,6 +103,33 @@ class TaskController extends Controller
       }
 
       $task->state_id = $request->state_id;
+      $task->save();
+
+      return redirect('/');
+    }
+
+    /**
+     * Function to update the basic information of a task
+     * @param  Request $request The request object with data PUT
+     * @return Redirects to dashboard
+     */
+    public function update(Request $request)
+    {
+      $validator = Validator::make($request->all(), [
+        "name" => "required",
+        "created_at" => "required|date_format:Y-m-d H:i:s"
+      ]);
+
+      if ($validator->fails()) {
+        return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($validator);
+      }
+
+      $task = Task::find($request->id);
+      $task->name = $request->name;
+      $task->created_at = $request->created_at;
       $task->save();
 
       return redirect('/');

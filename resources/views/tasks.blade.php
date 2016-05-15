@@ -67,6 +67,12 @@
                 {{ $task->state->name }}
               </td>
               <td>
+                <button class="btn btn-warning" onclick="window.location = '{{ url('task/update/' . $task->id) }}'">
+                  <i class="fa fa-paint-brush"></i>
+                  Edit
+                </button>
+              </td>
+              <td>
                 <form action="{{ url('task') }}" method="post">
                   {{ csrf_field() }}
                   {{ method_field('PUT') }}
