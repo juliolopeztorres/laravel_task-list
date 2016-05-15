@@ -23,6 +23,4 @@ Route::post('/task', 'TaskController@process');
 /**
  * Delete an existing task
  */
-Route::delete('/task/{task}', function (Task $task) {
-
-});
+Route::delete('/task/{task}', 'TaskController@delete');

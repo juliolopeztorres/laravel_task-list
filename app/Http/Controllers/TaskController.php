@@ -49,4 +49,17 @@ class TaskController extends Controller
         'tasks' => $tasks
       ]);
     }
+
+    /**
+     * Function to delete de task passed through argument.
+     * Redirects to the dashboard
+     * @param  Task   $task Task to delete
+     * @return Redirects to dashboard
+     */
+    public function delete(Task $task)
+    {
+      $task->delete();
+
+      return redirect('/');
+    }
 }

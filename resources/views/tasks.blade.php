@@ -45,7 +45,7 @@
             Task
           </th>
           <th colspan="3">
-            <i>Change the status of your tasks, delete those done, etc ...</i>
+            <i>Change the status of your tasks, delete those which are done, etc ...</i>
           </th>
         </thead>
         <tbody>
@@ -59,7 +59,15 @@
                 <!-->TODO: Current Status</!-->
               </td>
               <td>
-                <!-->TODO: DELETE Button</!-->
+                <form action="{{ url('task/' . $task->id) }}" method="post">
+                  {{ csrf_field() }}
+                  {{ method_field('DELETE') }}
+
+                  <button type="submit" class="btn btn-danger">
+                    <i class="fa fa-trash"></i>
+                    Delete
+                  </button>
+                </form>
               </td>
               <td>
                 <!-->TODO: CHANGE State Button</!-->
