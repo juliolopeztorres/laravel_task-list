@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
 use App\Task;
+use App\State;
 
 class TaskController extends Controller
 {
@@ -43,10 +44,14 @@ class TaskController extends Controller
      */
     public function display()
     {
-      $tasks = Task::orderBy('created_at', 'asc')->get();
+      $tasks = Task::orderBy('state_id', 'desc')->orderBy('created_at', 'asc')->get();
+
+      // Retrieve all possible states
+      $states = State::all();
 
       return view('tasks', [
-        'tasks' => $tasks
+        'tasks' => $tasks,
+        'states' => $states
       ]);
     }
 
@@ -59,6 +64,36 @@ class TaskController extends Controller
     public function delete(Task $task)
     {
       $task->delete();
+
+      return redirect('/');
+    }
+
+    /**
+     * Function to update a Task's state
+     * @param  Request $request The request object with data PUT
+     * @return Redirects to dashboard
+     */
+    public function updateState(Request $request)
+    {
+      $validator = Validator::make($request->all(), [
+        "state_id" => "required"
+      ]);
+
+      if ($validator->fails()) {
+        return redirect('/')
+                ->withInput()
+                ->withErrors($validator);
+      }
+
+      // Update task's state
+      $task = Task::find($request->task_id);
+      // If user put the same state, throw an error
+      if ($request->state_id == $task->state_id) {
+        return redirect('/')->withInput()->withErrors(['The state must be different than the actual.']);
+      }
+
+      $task->state_id = $request->state_id;
+      $task->save();
 
       return redirect('/');
     }

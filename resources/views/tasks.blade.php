@@ -15,7 +15,7 @@
         </label>
 
         <div class="col-sm-6">
-          <input type="text" name="name" id="task-name" class="form-control" value="">
+          <input type="text" name="name" id="task-name" class="form-control" value="{{ old('name') }}">
         </div>
       </div>
 
@@ -67,6 +67,27 @@
                 {{ $task->state->name }}
               </td>
               <td>
+                <form action="{{ url('task') }}" method="post">
+                  {{ csrf_field() }}
+                  {{ method_field('PUT') }}
+                  <select class="" name="state_id">
+                    @if(count($states) > 0)
+                        <option value="">Select one option</option>
+                      @foreach ($states AS $state)
+                        <option value="{{ $state->id }}" title="{{ $state->description }}">{{ $state->name }}</option>
+                      @endforeach
+                    @else
+                        <option value="">There is any state yet :(</option>
+                    @endif
+                  </select>
+                  <input type="hidden" name="task_id" value="{{ $task->id }}">
+                  <button type="submit" class="btn btn-info">
+                    <i class="fa fa-exchange"></i>
+                    Change
+                  </button>
+                </form>
+              </td>
+              <td>
                 <form action="{{ url('task/' . $task->id) }}" method="post">
                   {{ csrf_field() }}
                   {{ method_field('DELETE') }}
@@ -76,9 +97,6 @@
                     Delete
                   </button>
                 </form>
-              </td>
-              <td>
-                <!-->TODO: CHANGE State Button</!-->
               </td>
             </tr>
           @endforeach

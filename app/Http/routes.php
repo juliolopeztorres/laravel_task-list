@@ -21,6 +21,11 @@ Route::get('/', 'TaskController@display');
 Route::post('/task', 'TaskController@process');
 
 /**
+ * Update a task
+ */
+Route::put('/task', 'TaskController@update');
+
+/**
  * Delete an existing task
  */
 Route::delete('/task/{task}', 'TaskController@delete');
