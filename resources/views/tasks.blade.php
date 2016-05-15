@@ -44,6 +44,9 @@
           <th class="text-center">
             Task
           </th>
+          <th>
+            Created
+          </th>
           <th colspan="3">
             <i>Change the status of your tasks, delete those which are done, etc ...</i>
           </th>
@@ -56,7 +59,12 @@
                 {{ $task->name }}
               </td>
               <td>
-                <!-->TODO: Current Status</!-->
+                {{ date('d/m/Y', strtotime($task->created_at)) }}
+              </td>
+              <td class="util-pointer" title="{{ $task->state->description }}">
+                <i class="{{ $task->state->icon }}"></i>
+                &nbsp;
+                {{ $task->state->name }}
               </td>
               <td>
                 <form action="{{ url('task/' . $task->id) }}" method="post">
