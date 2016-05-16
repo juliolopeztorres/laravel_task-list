@@ -66,13 +66,13 @@
                 &nbsp;
                 {{ $task->state->name }}
               </td>
-              <td>
+              <td class="text-center">
                 <button class="btn btn-warning" onclick="window.location = '{{ url('task/update/' . $task->id) }}'">
                   <i class="fa fa-paint-brush"></i>
                   Edit
                 </button>
               </td>
-              <td>
+              <td class="text-center">
                 <form action="{{ url('task') }}" method="post">
                   {{ csrf_field() }}
                   {{ method_field('PUT') }}
@@ -93,17 +93,23 @@
                   </button>
                 </form>
               </td>
-              <td>
-                <form action="{{ url('task/' . $task->id) }}" method="post">
-                  {{ csrf_field() }}
-                  {{ method_field('DELETE') }}
+                @if($task->state->eraseable)
+                  <td class="text-center">
+                    <form action="{{ url('task/' . $task->id) }}" method="post">
+                      {{ csrf_field() }}
+                      {{ method_field('DELETE') }}
 
-                  <button type="submit" class="btn btn-danger">
-                    <i class="fa fa-trash"></i>
-                    Delete
-                  </button>
-                </form>
-              </td>
+                      <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
+                        Delete
+                      </button>
+                    </form>
+                  </td>
+                @else
+                <td>
+                  <span>This task cannot be erased.</span>
+                </td>
+                @endif
             </tr>
           @endforeach
         </tbody>
