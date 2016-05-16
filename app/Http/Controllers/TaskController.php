@@ -10,11 +10,22 @@ use App\State;
 
 class TaskController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Function to process a new posted task and add it to
      * tasks table
      * @param  Request $request The request input data
-     * @return Redirects to '/' with or without errors.
+     * @return Redirects to '/home' with or without errors.
      */
     public function process(Request $request)
     {
@@ -23,7 +34,7 @@ class TaskController extends Controller
       ]);
 
       if ($validator->fails()) {
-        return redirect('/')
+        return redirect('/home')
                 ->withInput()
                 ->withErrors($validator);
       }
@@ -33,7 +44,7 @@ class TaskController extends Controller
       $task->name = $request->name;
       $task->save();
 
-      return redirect('/');
+      return redirect('/home');
 
     }
 
@@ -75,7 +86,7 @@ class TaskController extends Controller
     {
       $task->delete();
 
-      return redirect('/');
+      return redirect('/home');
     }
 
     /**
@@ -90,7 +101,7 @@ class TaskController extends Controller
       ]);
 
       if ($validator->fails()) {
-        return redirect('/')
+        return redirect('/home')
                 ->withInput()
                 ->withErrors($validator);
       }
@@ -99,13 +110,13 @@ class TaskController extends Controller
       $task = Task::find($request->task_id);
       // If user put the same state, throw an error
       if ($request->state_id == $task->state_id) {
-        return redirect('/')->withInput()->withErrors(['The state must be different than the actual.']);
+        return redirect('/home')->withInput()->withErrors(['The state must be different than the actual.']);
       }
 
       $task->state_id = $request->state_id;
       $task->save();
 
-      return redirect('/');
+      return redirect('/home');
     }
 
     /**
@@ -118,7 +129,6 @@ class TaskController extends Controller
       $validator = Validator::make($request->all(), [
         "name" => "required",
         "created_at" => "required|date_format:Y-m-d H:i:s",
-        "description" => "required|max:255"
       ]);
 
       if ($validator->fails()) {
@@ -134,6 +144,6 @@ class TaskController extends Controller
       $task->created_at = $request->created_at;
       $task->save();
 
-      return redirect('/');
+      return redirect('/home');
     }
 }

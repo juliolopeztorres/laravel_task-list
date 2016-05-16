@@ -11,9 +11,14 @@ use App\Task;
 use Illuminate\Http\Request;
 
 /**
- * Home - Show task dashboard
+ * Home - Welcome page
  */
-Route::get('/', 'TaskController@display');
+Route::get('/', 'AppController@displayWelcomePage');
+
+/**
+ * Homepage for the users
+ */
+Route::get('/home', 'TaskController@display');
 
 /**
  * Add a new task
@@ -39,3 +44,5 @@ Route::put('task/update', 'TaskController@update');
  * Delete an existing task
  */
 Route::delete('/task/{task}', 'TaskController@delete');
+
+Route::auth();

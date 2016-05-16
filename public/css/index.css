@@ -5,3 +5,15 @@
 .util-resize-none {
   resize: none;
 }
+
+.util-padding-right-10 {
+  padding-right: 10px;
+}
+
+.util-padding-left-10 {
+  padding-left: 10px;
+}
+
+#p_navbar_name:hover {
+  color: #333;
+}

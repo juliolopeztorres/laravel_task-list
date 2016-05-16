@@ -47,7 +47,7 @@
           <th>
             Created
           </th>
-          <th colspan="3" class="text-center">
+          <th colspan="4" class="text-center">
             <i>Change the status of your tasks, delete those which are done, etc ...</i>
           </th>
         </thead>
