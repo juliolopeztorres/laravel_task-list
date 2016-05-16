@@ -26,6 +26,13 @@
       </fieldset>
 
       <fieldset class="form-group">
+        <label for="description">Description</label>
+        <textarea name="description" rows="8" cols="40"
+          class="form-control util-resize-none"
+          placeholder="Enter a short description of the task">@if(old('description')){{old('description')}}@else{{$task->description}}@endif</textarea>
+      </fieldset>
+
+      <fieldset class="form-group">
         <label for="created_at">Created at</label>
         <input type="date" class="form-control" name="created_at" id="task_created_at"
           placeholder="Enter a date (yyyy/mm/dd H:i:s)"

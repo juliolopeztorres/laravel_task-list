@@ -117,7 +117,8 @@ class TaskController extends Controller
     {
       $validator = Validator::make($request->all(), [
         "name" => "required",
-        "created_at" => "required|date_format:Y-m-d H:i:s"
+        "created_at" => "required|date_format:Y-m-d H:i:s",
+        "description" => "required|max:255"
       ]);
 
       if ($validator->fails()) {
@@ -129,6 +130,7 @@ class TaskController extends Controller
 
       $task = Task::find($request->id);
       $task->name = $request->name;
+      $task->description = $request->description;
       $task->created_at = $request->created_at;
       $task->save();
 

@@ -11,7 +11,12 @@
   </head>
   <body>
     <div class="container">
-      <nav class="navbar navbar-default">My Task Manager</nav>
+      <nav class="navbar navbar-default">
+        <p class="navbar-text">
+          <i class="fa fa-sticky-note-o"></i>
+          My Task Manager
+        </p>
+      </nav>
 
       @yield("content")
     </div>

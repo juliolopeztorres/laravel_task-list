@@ -1,3 +1,7 @@
 .util-pointer {
   cursor: pointer;
 }
+
+.util-resize-none {
+  resize: none;
+}
